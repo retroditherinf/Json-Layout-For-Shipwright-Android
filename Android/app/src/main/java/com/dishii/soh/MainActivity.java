@@ -66,6 +66,7 @@ public class MainActivity extends SDLActivity{
         super.onCreate(savedInstanceState);
 
         setupControllerOverlay();
+        applyTouchLayoutFromJson(overlayView);
         attachController();
     }
 
