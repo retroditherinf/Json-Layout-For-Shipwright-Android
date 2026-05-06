@@ -36,6 +36,11 @@ import android.widget.ImageView;
 
 import java.util.concurrent.Executors;
 import android.app.AlertDialog;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import android.util.DisplayMetrics;
 
 //This class is the main SDLActivity and just sets up a bunch of default files
 public class MainActivity extends SDLActivity{
@@ -629,4 +634,4 @@ public class MainActivity extends SDLActivity{
     }
 
 
-                                            }
+            }
