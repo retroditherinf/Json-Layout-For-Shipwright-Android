@@ -1,3 +1,4 @@
+
 package com.dishii.soh;
 import org.libsdl.app.SDLActivity;
 
@@ -13,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.concurrent.CountDownLatch;
 
 import android.Manifest;
@@ -26,7 +25,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import android.util.Log;
-import android.util.DisplayMetrics;
 
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -38,8 +36,6 @@ import android.widget.ImageView;
 
 import java.util.concurrent.Executors;
 import android.app.AlertDialog;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 //This class is the main SDLActivity and just sets up a bunch of default files
 public class MainActivity extends SDLActivity{
@@ -65,7 +61,6 @@ public class MainActivity extends SDLActivity{
         super.onCreate(savedInstanceState);
 
         setupControllerOverlay();
-        applyTouchLayoutFromJson(overlayView);
         attachController();
     }
 
@@ -572,6 +567,10 @@ public class MainActivity extends SDLActivity{
         });
     }
 
+
+
+
+
     // Function to set joystick movement with reset to center when not touched
     private void setupJoystick(FrameLayout joystickLayout, ImageView joystickKnob, boolean isLeft) {
         joystickLayout.post(() -> {
@@ -625,40 +624,9 @@ public class MainActivity extends SDLActivity{
                 }
             });
         });
-    }
 
-    private void applyTouchLayoutFromJson(View v) {
-        try {
-            File f = new File(Environment.getExternalStorageDirectory(), "SOH/touch_layout.json");
-            if (!f.exists()) return;
-
-            StringBuilder sb = new StringBuilder();
-            try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-                String line;
-                while ((line = br.readLine()) != null) sb.append(line);
-            }
-
-            JSONObject root = new JSONObject(sb.toString());
-            JSONArray buttons = root.getJSONArray("buttons");
-            DisplayMetrics dm = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-            for (int i = 0; i < buttons.length(); i++) {
-                JSONObject btn = buttons.getJSONObject(i);
-                String name = btn.getString("name");
-                float xPct = (float) btn.getDouble("x");
-                float yPct = (float) btn.getDouble("y");
-
-                View buttonView = v.findViewWithTag(name);
-                if (buttonView != null) {
-                    buttonView.setX(xPct * dm.widthPixels);
-                    buttonView.setY(yPct * dm.heightPixels);
-                }
-            }
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to apply JSON layout: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     }
+
+
+                                            }
